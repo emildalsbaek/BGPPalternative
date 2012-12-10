@@ -90,6 +90,8 @@ public class BookingBar implements GUIComponent
 			clearButton = new JButton("Clear");
 			closeButton = new JButton("Close");
 			
+				nextButton.setEnabled(false);
+			
 				nextButton.addActionListener(new NextListener());
 				clearButton.addActionListener(new ClearListener());
 				closeButton.addActionListener(new CloseListener());
