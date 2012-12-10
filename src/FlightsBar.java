@@ -61,7 +61,7 @@ public class FlightsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					System.out.println("Don't press me!");
+					
 				}
 			}
 	

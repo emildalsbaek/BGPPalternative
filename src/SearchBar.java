@@ -179,6 +179,8 @@ public class SearchBar implements GUIComponent
 			closeButton = new JButton("Close");
 			editButton = new JButton("Edit");
 			
+				editButton.setEnabled(false);
+			
 				searchButton.addActionListener(new SearchListener());
 				clearButton.addActionListener(new ClearListener());
 				closeButton.addActionListener(new CloseListener());
@@ -200,8 +202,6 @@ public class SearchBar implements GUIComponent
 					button.setPreferredSize(searchButton.getPreferredSize());
 					buttonPanel.add(button);
 				}
-				
-				editButton.setEnabled(false);
 			
 			frame.add(buttonPanel, BorderLayout.SOUTH);
 	}
