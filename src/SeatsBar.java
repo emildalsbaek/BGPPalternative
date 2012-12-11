@@ -28,8 +28,8 @@ public class SeatsBar implements GUIComponent
 			JLabel nose = new JLabel(new ImageIcon("nose.PNG"));
 			JLabel tail = new JLabel(new ImageIcon("tail.PNG"));
 			JLabel topwing = new JLabel(new ImageIcon("topwing.PNG"));
-			JLabel bottomwing = new JLabel(new ImageIcon("botomwing"));
-			JLabel body = new JLabel(new ImageIcon("body"));
+			JLabel bottomwing = new JLabel(new ImageIcon("botomwing.PNG"));
+			JLabel body = new JLabel(new ImageIcon("body.PNG"));
 			
 			frame.add(nose, BorderLayout.WEST);
 			frame.add(tail, BorderLayout.EAST);
