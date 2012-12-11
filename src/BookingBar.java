@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -38,11 +40,48 @@ public class BookingBar implements GUIComponent
 	private String[] toArray = { "Select Destination", "Amsterdam", "Copenhagen", "Rønne", "Timbuktu" };
 	private String[] dateArray = { "Select Date" };
 
+			public class FNListener implements KeyListener
+			{
+				public void keyPressed(KeyEvent e){}
+
+				public void keyReleased(KeyEvent e){}
+
+				public void keyTyped(KeyEvent e)
+				{
+					nextEnabler();
+				}
+			}
+			
+			public class LNListener implements KeyListener
+			{
+				public void keyPressed(KeyEvent e){}
+
+				public void keyReleased(KeyEvent e){}
+
+				public void keyTyped(KeyEvent e)
+				{
+					nextEnabler();
+				}
+			}
+			
+			public class PNListener implements KeyListener
+			{
+				public void keyPressed(KeyEvent e){}
+
+				public void keyReleased(KeyEvent e){}
+
+				public void keyTyped(KeyEvent e)
+				{
+					nextEnabler();
+				}
+			}
+	
 			public class FromListener implements ActionListener
 			{
 				public void actionPerformed(ActionEvent e)
 				{	
 					refillToBox();
+					resetDateBox();
 					
 					if(! fromBox.getSelectedItem().equals(toBox.getSelectedItem()))
 					{
@@ -55,14 +94,35 @@ public class BookingBar implements GUIComponent
 						toBox.setSelectedIndex(0);
 						dateBox.setSelectedIndex(0);
 					}
+					
+					nextEnabler();
 				}
 			}
 			
 			public class ToListener implements ActionListener
 			{
 				public void actionPerformed(ActionEvent e)
-				{
+				{	
+					if(toBox.getSelectedIndex() != 0 && fromBox.getSelectedIndex() != 0)
+					{
+						try
+						{
+							SearchFunctionBook.getEntry((String)fromBox.getSelectedItem(), (String)toBox.getSelectedItem());
+						}
+						
+						catch (Exception e1)
+						{
+							e1.printStackTrace();
+						}
+						
+							for(int i=0; i<SearchFunctionBook.st.getItemCount(); i++)
+								dateBox.addItem(SearchFunctionBook.st.getItem(i));
+															
+						// Clears the list of search results setting it up for a new search.
+							SearchFunctionBook.st.removeAll();
+					}
 					
+					nextEnabler();
 				}
 			}
 			
@@ -70,7 +130,7 @@ public class BookingBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					
+					nextEnabler();
 				}
 			}
 			
@@ -246,6 +306,10 @@ public class BookingBar implements GUIComponent
 			lastNameField = new JTextField();
 			phoneNumberField = new JTextField();
 			
+				firstNameField.addKeyListener(new FNListener());
+				lastNameField.addKeyListener(new LNListener());
+				phoneNumberField.addKeyListener(new PNListener());
+			
 				JTextField[] fields = new JTextField[3];
 					fields[0] = firstNameField;
 					fields[1] = lastNameField;
@@ -284,8 +348,24 @@ public class BookingBar implements GUIComponent
 		toBox.removeAllItems();
 		
 		for(String destination : toArray)
-		{
 			toBox.addItem(destination);
+	}
+	
+	public void resetDateBox()
+	{
+		dateBox.removeAllItems();
+		
+		for(String date : dateArray)
+			dateBox.addItem(date);
+	}
+
+	public void nextEnabler()
+	{
+		if(	fromBox.getSelectedIndex() != 0 && toBox.getSelectedIndex() != 0 && dateBox.getSelectedIndex() != 0 && 
+			!firstNameField.getText().equalsIgnoreCase("") && !lastNameField.getText().equalsIgnoreCase("") &&
+			!phoneNumberField.getText().equalsIgnoreCase(""))
+		{
+			nextButton.setEnabled(true);
 		}
 	}
 	
