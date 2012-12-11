@@ -61,7 +61,42 @@ public class FlightsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					
+					// Checks to see if values have been chosen. If not, writes message in outputArea
+					if ( fromBox.getSelectedItem() == "Select Departure" &&
+						 toBox.getSelectedItem() == "Select Destination"	) 
+					{
+						outputArea.setText(null);
+						outputArea.setText("You must select both a departure and destination.");
+					}
+					else {
+						outputArea.setText(null);
+						
+						try 
+						{
+							SearchFunctionFlights.getEntry((String)fromBox.getSelectedItem(), (String)toBox.getSelectedItem());
+						} 
+						catch (Exception e2) 
+						{
+							e2.printStackTrace();
+						}
+						
+						if (SearchFunctionFlights.st.getItemCount() == 0) 
+						{
+							outputArea.setText("");
+							outputArea.setText("Flights not found.");
+						}
+						
+						else 
+						{
+							for (int i = 0; i < SearchFunctionFlights.st.getItemCount(); i++) 
+							{
+								outputArea.append(SearchFunctionFlights.st.getItem(i) + "\n");
+							}
+						}
+						
+						// Clears the list for new search.
+						SearchFunctionFlights.st.removeAll();
+					}
 				}
 			}
 	
@@ -71,6 +106,7 @@ public class FlightsBar implements GUIComponent
 				{
 					fromBox.setSelectedIndex(0);
 					toBox.setSelectedIndex(0);
+					outputArea.setText(null);
 				}
 			}
 			
