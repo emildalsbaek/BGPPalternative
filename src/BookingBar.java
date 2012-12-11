@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -35,7 +36,32 @@ public class BookingBar implements GUIComponent
 	
 	private String[] fromArray = { "Select Departure", "Amsterdam", "Copenhagen", "Rønne", "Timbuktu" };
 	private String[] toArray = { "Select Destination", "Amsterdam", "Copenhagen", "Rønne", "Timbuktu" };
+	private String[] dateArray = { "Select Date" };
 
+			public class FromListener implements ActionListener
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					
+				}
+			}
+			
+			public class ToListener implements ActionListener
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					
+				}
+			}
+			
+			public class DateListener implements ActionListener
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					
+				}
+			}
+			
 			public class NextListener implements ActionListener
 			{
 				public void actionPerformed(ActionEvent e)
@@ -138,29 +164,95 @@ public class BookingBar implements GUIComponent
 
 	public void makeComboBoxes()
 	{
-		
-		
-		fromBox = new JComboBox<String>(fromArray);
-		toBox = new JComboBox<String>(toArray);
-		dateBox = new JComboBox<String>();
-		
-		
+		// Sets up the from, to and date selection boxes.
+			JPanel boxPanel = new JPanel();
+				boxPanel.setLayout(new FlowLayout());
+				boxPanel.setBackground(Color.getHSBColor(0.55f, 0.55f, 0.75f));
+			
+			JPanel layoutPanel = new JPanel();
+				layoutPanel.setLayout(new BoxLayout(layoutPanel, 1));
+				layoutPanel.setBackground(Color.getHSBColor(0.55f, 0.55f, 0.75f));
+				
+			fromBox = new JComboBox<String>(fromArray);
+			toBox = new JComboBox<String>(toArray);
+			dateBox = new JComboBox<String>(dateArray);
+			
+				fromBox.addActionListener(new FromListener());
+				toBox.addActionListener(new ToListener());
+				dateBox.addActionListener(new DateListener());
+							
+				boxPanel.add(fromBox);
+				boxPanel.add(toBox);
+				boxPanel.add(dateBox);
+				
+				layoutPanel.add(new JLabel(" "));
+				layoutPanel.add(new JLabel(" "));
+				layoutPanel.add(new JLabel(" "));
+				layoutPanel.add(new JLabel(" "));
+				layoutPanel.add(new JLabel(" "));
+				layoutPanel.add(new JLabel(" "));
+				layoutPanel.add(boxPanel);
+			
+			frame.add(layoutPanel, BorderLayout.CENTER);
 	}
 	
 	public void makeTextFields()
-	{
-		JPanel textFieldPanel = new JPanel();
-			textFieldPanel.setLayout(new FlowLayout());
-		
-		JLabel passengerHeader = new JLabel("Enter passenger details.");
-		
-		JLabel firstLabel = new JLabel("First name:");
-		JLabel lastLabel = new JLabel("Last name:");
-		JLabel phoneLabel = new JLabel("Phone number:");
-		
-		firstNameField = new JTextField();
-		lastNameField = new JTextField();
-		phoneNumberField = new JTextField();
+	{	
+		// Sets up the passenger details text fields.
+			JLabel passengerHeader = new JLabel("Enter passenger details");
+				passengerHeader.setFont(new Font("sansserif", Font.BOLD, 16));
+				passengerHeader.setForeground(Color.WHITE);
+				
+			JPanel textFieldPanel = new JPanel();
+				textFieldPanel.setLayout(new GridLayout(0, 1));
+				textFieldPanel.add(passengerHeader);
+				textFieldPanel.add(new JLabel(" "));
+				textFieldPanel.setBackground(Color.getHSBColor(0.55f, 0.55f, 0.75f));
+			
+			JLabel firstLabel = new JLabel("First name:");
+			JLabel lastLabel = new JLabel("Last name:");
+			JLabel phoneLabel = new JLabel("Phone number:");
+			
+				JLabel[] labels = new JLabel[3];
+					labels[0] = firstLabel;
+					labels[1] = lastLabel;
+					labels[2] = phoneLabel;
+					
+					for(JLabel label : labels)
+					{
+						label.setForeground(Color.white);
+					}
+					
+			firstNameField = new JTextField();
+			lastNameField = new JTextField();
+			phoneNumberField = new JTextField();
+			
+				JTextField[] fields = new JTextField[3];
+					fields[0] = firstNameField;
+					fields[1] = lastNameField;
+					fields[2] = phoneNumberField;
+					
+					for(JTextField field : fields)
+					{
+						field.setBackground(Color.getHSBColor(0.55f, 0.50f, 0.50f));
+						field.setForeground(Color.WHITE);
+						field.setCaretColor(Color.WHITE);
+						field.setHorizontalAlignment(JTextField.CENTER);
+						field.setBorder(null);
+					}
+			
+					for(int i=0; i<labels.length && i<fields.length; i++)
+					{
+						textFieldPanel.add(labels[i]);
+						textFieldPanel.add(fields[i]);
+					}
+			
+			JPanel layoutPanel = new JPanel();
+				layoutPanel.setLayout(new FlowLayout());
+				layoutPanel.add(textFieldPanel);
+				layoutPanel.setBackground(Color.getHSBColor(0.55f, 0.55f, 0.75f));
+				
+			frame.add(layoutPanel, BorderLayout.WEST);
 	}
 	
 	public void showFrame() 
