@@ -1,7 +1,3 @@
-
-
-
-
 public class AddFunctionPas {
 	
 	//used for inserting or changing data.
@@ -16,15 +12,15 @@ public class AddFunctionPas {
 	//int i10 is NumberOfSeats
 	//String i11 is SeatNumber
 	//empty strings not allowed!
-	public void setEntry(String i2, String i3, String i4, int i5, String i6, int i7, int i8, String i9, int i10, String i11) throws Exception {
+	public void setEntry(String i2, String i3, int i4, int i5, String i6) throws Exception {
 		
-		Database.getInstance().execute("INSERT INTO passengers (FirstName, LastName, BirthDate, PhoneNumber, StreetAddress, ZipCode, FlightNumber, DepDate, NumberOfSeats, SeatNumber, BookingNumber) VALUES ("+ i2 +","+ i3 +","+ i4 +","+ i5 +","+ i6 +","+ i7 +","+ i8 +","+ i9 +","+ i10 +","+ i11 +","+ bookingNrGen(i3, i4, i5) +")");
+		Database.getInstance().execute("INSERT INTO passengers (FirstName, LastName, PhoneNumber, FlightID, Seats, BookingNumber) VALUES ("+ i2 +","+ i3 +","+ i4 +","+ i5 +","+ i6 +","+ bookingNrGen(i2, i3, i4) +")");
 	}
 	
-	private static int bookingNrGen(String curLast, String curBirth, int curPhone){
+	private static int bookingNrGen(String curFirst, String curLast, int curPhone){
 		int hash = 1;
+		hash = hash + curFirst.hashCode();
 		hash = hash + curLast.hashCode();
-		hash = hash + curBirth.hashCode();
 		hash = hash + curPhone;
 		
 		System.out.println(hash);
