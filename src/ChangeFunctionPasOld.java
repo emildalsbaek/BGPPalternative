@@ -3,7 +3,7 @@
 
 
 
-public class ChangeFunctionPas {
+public class ChangeFunctionPasOld {
 	//used for changing info in rows.
 	//String value is the replacing value.
 	//String column is the column in which the value will be changed (y coordinate)
