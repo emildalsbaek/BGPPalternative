@@ -9,8 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class BookingBar implements GUIComponent 
 {
@@ -21,6 +24,17 @@ public class BookingBar implements GUIComponent
 	private JButton nextButton;
 	private JButton clearButton;
 	private JButton closeButton;
+	
+	private JComboBox<String> fromBox;
+	private JComboBox<String> toBox;
+	private JComboBox<String> dateBox;
+	
+	private JTextField firstNameField;
+	private JTextField lastNameField;
+	private JTextField phoneNumberField;
+	
+	private String[] fromArray = { "Select Departure", "Amsterdam", "Copenhagen", "Rønne", "Timbuktu" };
+	private String[] toArray = { "Select Destination", "Amsterdam", "Copenhagen", "Rønne", "Timbuktu" };
 
 			public class NextListener implements ActionListener
 			{
@@ -51,6 +65,8 @@ public class BookingBar implements GUIComponent
 	{
 		makeFrame();
 		makeButtons();
+		makeComboBoxes();
+		makeTextFields();
 		
 		showFrame();
 		
@@ -71,9 +87,7 @@ public class BookingBar implements GUIComponent
 				frame.setLocation((int)(d.width*(392f/1920f)), (int)(d.height*(77f/1080f)));
 				frame.setLayout(new BorderLayout());
 				
-			JPanel emptyEast = new JPanel();
 			JPanel emptyWest = new JPanel();
-				emptyEast.setBackground(Color.getHSBColor(0.55f, 0.55f, 0.75f));
 				emptyWest.setBackground(Color.getHSBColor(0.55f, 0.55f, 0.75f));
 				
 			frame.add(emptyWest, BorderLayout.WEST);
@@ -122,6 +136,33 @@ public class BookingBar implements GUIComponent
 			frame.add(bookingPanel, BorderLayout.EAST);
 	}
 
+	public void makeComboBoxes()
+	{
+		
+		
+		fromBox = new JComboBox<String>(fromArray);
+		toBox = new JComboBox<String>(toArray);
+		dateBox = new JComboBox<String>();
+		
+		
+	}
+	
+	public void makeTextFields()
+	{
+		JPanel textFieldPanel = new JPanel();
+			textFieldPanel.setLayout(new FlowLayout());
+		
+		JLabel passengerHeader = new JLabel("Enter passenger details.");
+		
+		JLabel firstLabel = new JLabel("First name:");
+		JLabel lastLabel = new JLabel("Last name:");
+		JLabel phoneLabel = new JLabel("Phone number:");
+		
+		firstNameField = new JTextField();
+		lastNameField = new JTextField();
+		phoneNumberField = new JTextField();
+	}
+	
 	public void showFrame() 
 	{
 		frame.setVisible(true);
