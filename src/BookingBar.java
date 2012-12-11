@@ -41,8 +41,20 @@ public class BookingBar implements GUIComponent
 			public class FromListener implements ActionListener
 			{
 				public void actionPerformed(ActionEvent e)
-				{
+				{	
+					refillToBox();
 					
+					if(! fromBox.getSelectedItem().equals(toBox.getSelectedItem()))
+					{
+						toBox.removeItem(fromBox.getSelectedItem());
+					}
+					
+					else if(fromBox.getSelectedItem().equals(toBox.getSelectedItem()))
+					{
+						fromBox.setSelectedIndex(0);
+						toBox.setSelectedIndex(0);
+						dateBox.setSelectedIndex(0);
+					}
 				}
 			}
 			
@@ -74,7 +86,14 @@ public class BookingBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
+					firstNameField.setText(null);
+					lastNameField.setText(null);
+					phoneNumberField.setText(null);
+					fromBox.setSelectedIndex(0);
+					toBox.setSelectedIndex(0);
+					dateBox.setSelectedIndex(0);
 					
+					nextButton.setEnabled(false);
 				}
 			}
 
@@ -259,7 +278,17 @@ public class BookingBar implements GUIComponent
 	{
 		frame.setVisible(true);
 	}
-
+	
+	public void refillToBox()
+	{
+		toBox.removeAllItems();
+		
+		for(String destination : toArray)
+		{
+			toBox.addItem(destination);
+		}
+	}
+	
 	public static JFrame getFrame()
 	{
 		return frame;
