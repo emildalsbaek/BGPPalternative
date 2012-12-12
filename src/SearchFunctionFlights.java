@@ -39,7 +39,6 @@ public class SearchFunctionFlights
 					for ( int i = 1; i < rs.getMetaData().getColumnCount(); i++)
 						SeatsTotal = rs.getInt(i);
 				}
-				System.out.println(SeatsTotal);
 			return SeatsTotal;
 		}
 }
