@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class SeatsBar implements GUIComponent
-{
+{	
 	private JFrame frame;
 	
 	private JButton backButton;
@@ -23,6 +25,49 @@ public class SeatsBar implements GUIComponent
 	private JButton cancelButton;
 	private JButton confirmButton;
 	
+	private JPanel northSeats;
+	private JPanel southSeats;
+	
+			public class Seat
+			{
+				boolean isTaken = false;
+				protected JButton seat;
+				
+						public class SeatListener implements MouseListener
+						{
+							public void mouseClicked(MouseEvent e)
+							{
+								if(seat.isSelected())
+									seat.setSelected(false);
+								
+								else
+									seat.setSelected(true);
+							}
+		
+							public void mouseEntered(MouseEvent e){}
+							
+							public void mouseExited(MouseEvent e){}
+		
+							public void mousePressed(MouseEvent e){}
+		
+							public void mouseReleased(MouseEvent e){}
+							
+						}
+				
+				public Seat(String letter, int number)
+				{
+					seat = new JButton(new ImageIcon("seatFree.PNG"));
+						seat.setBorderPainted(false);
+						seat.setBorder(null);
+						seat.setBackground(Color.WHITE);
+						seat.setFocusPainted(false);
+						seat.setToolTipText(letter + number);
+						seat.addMouseListener(new SeatListener());
+						seat.setSelectedIcon(new ImageIcon("seatSelected.PNG"));
+						seat.setName(letter + number);
+				}
+			}
+			
 			public class BackListener implements ActionListener
 			{
 				public void actionPerformed(ActionEvent e)
@@ -35,7 +80,7 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-//					BookingBar.getFrame().setVisible(false);
+					BookingBar.getFrame().setVisible(false);
 					frame.setVisible(false);
 				}
 			}
@@ -65,10 +110,11 @@ public class SeatsBar implements GUIComponent
 			}
 			
 	public SeatsBar()
-	{
+	{	
 		makeFrame();
 		makeButtons();
 		makePassengerPane();
+		makeSeats();
 		
 		showFrame();
 	}
@@ -80,6 +126,7 @@ public class SeatsBar implements GUIComponent
 			Dimension size = new Dimension((int)(d.width*(1136f/1920f)), (int)(d.height*(350f/1080f)));
 			
 			frame = new JFrame();
+				frame.setAlwaysOnTop(true);	
 				frame.setSize(size.width, size.height);
 				frame.setUndecorated(true);
 				frame.setResizable(false);
@@ -89,15 +136,9 @@ public class SeatsBar implements GUIComponent
 			
 			JLabel tail = new JLabel(new ImageIcon("largeeast.PNG"));
 			JLabel nose = new JLabel(new ImageIcon("largewest.PNG"));	
-			JLabel body = new JLabel(new ImageIcon("largecenter.PNG"));
-				body.setLayout(new GridLayout(5, 25));
-				
-				for(int i=0; i<125; i++)
-					body.add(new JButton(new ImageIcon("seatIcon.PNG")));
 			
 			frame.add(tail, BorderLayout.EAST);
 			frame.add(nose, BorderLayout.WEST);
-			frame.add(body, BorderLayout.CENTER);
 	}
 
 	public void makeButtons()
@@ -194,6 +235,132 @@ public class SeatsBar implements GUIComponent
 				topwing.add(dateLabel);
 				
 			frame.add(topwing, BorderLayout.NORTH);
+	}
+	
+	public void makeSeats()
+	{
+		// Sets up the seats.
+			try
+			{
+				if(SearchFunctionFlights.getMaxSeats(	BookingBar.fromBox.getSelectedItem().toString(), 
+														BookingBar.toBox.getSelectedItem().toString(),
+														BookingBar.dateBox.getSelectedItem().toString()) == 40)
+					seats40();
+				
+				else
+					seats100();
+			}
+			
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+	}
+	
+	public void seats100()
+	{
+		// Sets up the seats in a 100-seater plane model.
+			JLabel body = new JLabel(new ImageIcon("largecenter.PNG"));
+				body.setLayout(new BorderLayout());
+		
+			northSeats = new JPanel();
+				northSeats.setLayout(new GridLayout(2, 20));
+				northSeats.setOpaque(false);
+		
+			southSeats = new JPanel();
+				southSeats.setLayout(new GridLayout(3, 20));
+				southSeats.setOpaque(false);
+				
+			JLabel centerRow = new JLabel("");
+		
+				for(int i=1; i<=100; i++)
+				{
+					if(i<=20)
+					{
+						Seat seat = new Seat("A", i);
+						northSeats.add(seat.seat);
+					}
+					
+					else if(i<=40)
+					{
+						Seat seat = new Seat("B", i-20);
+						northSeats.add(seat.seat);
+					}
+	
+					else if(i<=60)
+					{
+						Seat seat = new Seat("C", i-40);
+						southSeats.add(seat.seat);
+					}
+					
+					else if(i<=80)
+					{
+						Seat seat = new Seat("D", i-60);
+						southSeats.add(seat.seat);
+					}
+					
+					else if(i<=100)
+					{
+						Seat seat = new Seat("E", i-80);
+						southSeats.add(seat.seat);
+					}
+				}
+			
+				body.add(northSeats, BorderLayout.NORTH);
+				body.add(southSeats, BorderLayout.SOUTH);
+				body.add(centerRow, BorderLayout.CENTER);
+			
+			frame.add(body, BorderLayout.CENTER);	
+		}
+	
+	public void seats40()
+	{
+		// Sets up the seats in a 40-seater plane model.
+			JLabel body = new JLabel(new ImageIcon("largecenter.PNG"));
+				body.setLayout(new BorderLayout());
+
+			northSeats = new JPanel();
+				northSeats.setLayout(new GridLayout(2, 10));
+				northSeats.setOpaque(false);
+
+			southSeats = new JPanel();
+				southSeats.setLayout(new GridLayout(2, 10));
+				southSeats.setOpaque(false);
+		
+			JLabel centerRow = new JLabel("");
+
+				for(int i=1; i<=40; i++)
+				{
+					if(i<=10)
+					{
+						Seat seat = new Seat("A", i);
+						northSeats.add(seat.seat);
+					}
+					
+					else if(i<=20)
+					{
+						Seat seat = new Seat("B", i-10);
+						northSeats.add(seat.seat);
+					}
+		
+					else if(i<=30)
+					{
+						Seat seat = new Seat("C", i-20);
+						southSeats.add(seat.seat);
+					}
+					
+					else if(i<=40)
+					{
+						Seat seat = new Seat("D", i-30);
+						southSeats.add(seat.seat);
+					}
+				}
+	
+			body.add(northSeats, BorderLayout.NORTH);
+			body.add(southSeats, BorderLayout.SOUTH);
+			body.add(centerRow, BorderLayout.CENTER);
+	
+		frame.add(body, BorderLayout.CENTER);	
 	}
 	
 	public void showFrame()
