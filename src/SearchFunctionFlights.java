@@ -6,8 +6,8 @@ public class SearchFunctionFlights
 	static List st = new List();
 	
 	// Searching the database.
-	// Takes DataBase.getEntry(string firstName, string lastName, string BirthDate, string ZipCode, string PhoneNumber,
-	// string BookingNumber): empty strings allowed.
+	// Takes DataBase.getEntry(string fromcity, string tocity)
+	// empty strings allowed.
 		public static List getEntry(String qr1, String qr2) throws Exception
 		{
 			String query =	"SELECT FlightID, FromCity, ToCity, DepartureDate, SeatsTotal," +

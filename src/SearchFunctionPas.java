@@ -6,8 +6,8 @@ public class SearchFunctionPas
 	static List st = new List();
 	
 	// Searching the database.
-	// Takes DataBase.getEntry(string firstName, string lastName, string BirthDate, string ZipCode, string PhoneNumber,
-	// string BookingNumber): empty strings allowed.
+	// Takes DataBase.getEntry(string firstName, string lastName,string PhoneNumber, string bookingnr)
+	// empty strings allowed.
 		public static List getEntry(String qr1, String qr2, String qr3, String qr4) throws Exception
 		{
 			String query =	"SELECT ID, FirstName, LastName, PhoneNumber, FlightID, Seats, BookingNumber," + 
