@@ -19,9 +19,10 @@ import javax.swing.border.EmptyBorder;
 public class EditPassengerBar implements GUIComponent
 {
 	static boolean isOpen;
+	static int passengerID;
 	
 	private JFrame frame;
-	private JFormattedTextField inputField;
+	private static JFormattedTextField inputField;
 	private JButton confirmButton;
 	private JButton cancelButton;
 	
@@ -140,5 +141,12 @@ public class EditPassengerBar implements GUIComponent
 	public void showFrame()
 	{
 		frame.setVisible(true);
+	}
+	
+	public static int getPassengerID()
+	{
+		passengerID = Integer.parseInt(inputField.getText().toString());
+		
+		return passengerID;
 	}
 }

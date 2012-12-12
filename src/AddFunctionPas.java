@@ -10,7 +10,7 @@ public class AddFunctionPas {
 	 *	String i6 is Seats
 	 *	empty strings not allowed!
 	 */
-	public void setEntry(int i1, String i2, String i3, String i4, int i5, String i6) throws Exception {
+	public static void setEntry(int i1, String i2, String i3, String i4, int i5, String i6) throws Exception {
 		
 		if (i1 == 0) {
 			Database.getInstance().execute("INSERT INTO passengers (FirstName, LastName, PhoneNumber, FlightID, Seats, BookingNumber) VALUES ("+ i2 +","+ i3 +","+ i4 +","+ i5 +","+ i6 +","+ bookingNrGen(i2, i3, i4) +")");

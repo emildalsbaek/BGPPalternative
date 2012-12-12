@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,6 +18,8 @@ import javax.swing.JPanel;
 
 public class SeatsBar implements GUIComponent
 {	
+	private ArrayList<JButton> selectedSeats = new ArrayList<JButton>();
+	
 	private JFrame frame;
 	
 	private JButton backButton;
@@ -28,6 +31,9 @@ public class SeatsBar implements GUIComponent
 	private JPanel northSeats;
 	private JPanel southSeats;
 	
+	private static JLabel flightIDLabel;
+	private int flightID;
+	
 			public class Seat
 			{
 				boolean isTaken = false;
@@ -38,10 +44,16 @@ public class SeatsBar implements GUIComponent
 							public void mouseClicked(MouseEvent e)
 							{
 								if(seat.isSelected())
+								{
 									seat.setSelected(false);
+									selectedSeats.remove(seat);
+								}
 								
 								else
+								{
 									seat.setSelected(true);
+									selectedSeats.add(seat);
+								}	
 							}
 		
 							public void mouseEntered(MouseEvent e){}
@@ -89,7 +101,10 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					
+					for(int i=0; i<selectedSeats.size(); i++)
+					{
+						selectedSeats.get(i).setSelected(false);
+					}
 				}
 			}
 			
@@ -97,7 +112,15 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
+					try
+					{
+						DelFunctionPas.delEntry(EditPassengerBar.getPassengerID());
+					} 
 					
+					catch (Exception e1)
+					{
+						e1.printStackTrace();
+					}
 				}
 			}
 			
@@ -105,11 +128,19 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					AddFunctionPas.setEntry(0, 	BookingBar.firstNameField.getText(),
-												BookingBar.lastNameField.getText(),
-												BookingBar.phoneNumberField.getText(),
-												SeatsBar.flightIDLabel.getText(),
-												);
+					try
+					{
+						AddFunctionPas.setEntry(0, 	BookingBar.firstNameField.getText(),
+													BookingBar.lastNameField.getText(),
+													BookingBar.phoneNumberField.getText(),
+													flightID,
+													"pik");
+					}
+					
+					catch (Exception e1)
+					{
+						e1.printStackTrace();
+					}
 				}
 			}
 			
@@ -181,6 +212,8 @@ public class SeatsBar implements GUIComponent
 				backButton.setPreferredSize(closeButton.getPreferredSize());
 				clearButton.setPreferredSize(closeButton.getPreferredSize());
 				cancelButton.setPreferredSize(confirmButton.getPreferredSize());
+				
+				cancelButton.setEnabled(false);
 			
 			JButton[] buttons = new JButton[5];
 				buttons[0] = backButton;
@@ -217,15 +250,30 @@ public class SeatsBar implements GUIComponent
 			JLabel phoneLabel = new JLabel("   Phone: " + BookingBar.phoneNumberField.getText());
 			JLabel fromLabel = new JLabel("   From: " + BookingBar.fromBox.getSelectedItem().toString());
 			JLabel toLabel = new JLabel("   To: " + BookingBar.toBox.getSelectedItem().toString());
-			JLabel dateLabel = new JLabel("   " + BookingBar.dateBox.getSelectedItem().toString());
-			JLabel flightIDLabel = new JLabel("   " + SearchFunctionFlights.getFlightID());
+			JLabel dateLabel = new JLabel("   Date: " + BookingBar.dateBox.getSelectedItem().toString());
+			
+			try
+			{
+				flightID = 	SearchFunctionFlights.getFlightID(
+							BookingBar.fromBox.getSelectedItem().toString(),
+							BookingBar.toBox.getSelectedItem().toString(), 
+							BookingBar.dateBox.getSelectedItem().toString());
+			} 
+			
+			catch (Exception e1)
+			{
+				e1.printStackTrace();
+			}
 
-			JLabel[] labels	= new JLabel[5];
+			flightIDLabel = new JLabel("   FlightID: " + flightID);
+
+			JLabel[] labels	= new JLabel[6];
 				labels[0] = nameLabel;
 				labels[1] = phoneLabel;
 				labels[2] = fromLabel;
 				labels[3] = toLabel;
 				labels[4] = dateLabel;
+				labels[5] = flightIDLabel;
 				
 					for(JLabel label : labels)
 					{
@@ -238,6 +286,7 @@ public class SeatsBar implements GUIComponent
 				topwing.add(fromLabel);
 				topwing.add(toLabel);
 				topwing.add(dateLabel);
+				topwing.add(flightIDLabel);
 				
 			frame.add(topwing, BorderLayout.NORTH);
 	}
