@@ -5,6 +5,7 @@ public class SearchFunctionFlights
 {	
 	static List st = new List();
 	static int SeatsTotal = 0;
+	static int FlightID = 0;
 	
 	// Searching the database.
 	// Takes DataBase.getEntry(string fromcity, string tocity)
@@ -42,5 +43,21 @@ public class SearchFunctionFlights
 						SeatsTotal = rs.getInt(i);
 				}
 			return SeatsTotal;
+		}
+		
+		public static int getFlightID(String qr1, String qr2, String qr3) throws Exception
+		{
+			String query =	"SELECT FlightID," +
+							" FlightID FROM Flights" + " WHERE FromCity = '" + qr1 + "' AND ToCity = '" + qr2 +
+							"' AND DepartureDate = '"+ qr3 +"'";
+
+			ResultSet rs = Database.getInstance().execute(query);
+		
+				while (rs.next())
+				{
+					for ( int i = 1; i < rs.getMetaData().getColumnCount(); i++)
+						FlightID = rs.getInt(i);
+				}
+			return FlightID;
 		}
 }

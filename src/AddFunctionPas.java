@@ -10,7 +10,7 @@ public class AddFunctionPas {
 	 *	String i6 is Seats
 	 *	empty strings not allowed!
 	 */
-	public void setEntry(int i1, String i2, String i3, int i4, int i5, String i6) throws Exception {
+	public void setEntry(int i1, String i2, String i3, String i4, int i5, String i6) throws Exception {
 		
 		if (i1 == 0) {
 			Database.getInstance().execute("INSERT INTO passengers (FirstName, LastName, PhoneNumber, FlightID, Seats, BookingNumber) VALUES ("+ i2 +","+ i3 +","+ i4 +","+ i5 +","+ i6 +","+ bookingNrGen(i2, i3, i4) +")");
@@ -19,11 +19,11 @@ public class AddFunctionPas {
 		}
 	}
 	
-	private static int bookingNrGen(String curFirst, String curLast, int curPhone){
+	private static int bookingNrGen(String curFirst, String curLast, String curPhone){
 		int hash = 1;
 		hash = hash + curFirst.hashCode();
 		hash = hash + curLast.hashCode();
-		hash = hash + curPhone;
+		hash = hash + curPhone.hashCode();
 		
 		System.out.println(hash);
 		
