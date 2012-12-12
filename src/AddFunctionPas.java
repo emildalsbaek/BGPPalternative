@@ -13,19 +13,15 @@ public class AddFunctionPas {
 	public static void setEntry(int i1, String i2, String i3, String i4, int i5, String i6) throws Exception {
 		
 		if (i1 == 0) {
-			Database.getInstance().execute("INSERT INTO passengers (FirstName, LastName, PhoneNumber, FlightID, Seats, BookingNumber) VALUES ("+ i2 +","+ i3 +","+ i4 +","+ i5 +","+ i6 +","+ bookingNrGen(i2, i3, i4) +")");
+			Database.getInstance().execute("INSERT INTO passengers (FirstName, LastName, PhoneNumber, FlightID, Seats, BookingNumber) VALUES ('"+ i2 +"','"+ i3 +"','"+ i4 +"','"+ i5 +"','"+ i6 +"','"+ bookingNrGen(i2, i3, i4) +"')");
 		} else {
-			Database.getInstance().execute("INSERT INTO passengers (FirstName, LastName, PhoneNumber, FlightID, Seats, BookingNumber) WHERE ID ="+ i1 +" VALUES ("+ i2 +","+ i3 +","+ i4 +","+ i5 +","+ i6 +","+ bookingNrGen(i2, i3, i4) +")");
+			Database.getInstance().execute("UPDATE passengers SET FirstName = '"+ i2 +"', LastName = '"+ i3 +"', PhoneNumber = '"+ i4 +"', FlightID = '"+ i5 +"', Seats = '"+ i6 +"', BookingNumber = '"+ bookingNrGen(i2, i3, i4) +"' WHERE ID = "+ i1 +"");
 		}
 	}
 	
 	private static int bookingNrGen(String curFirst, String curLast, String curPhone){
-		int hash = 1;
+		int hash = 100000;
 		hash = hash + curFirst.hashCode();
-		hash = hash + curLast.hashCode();
-		hash = hash + curPhone.hashCode();
-		
-		System.out.println(hash);
 		
 		return hash;
 	}
