@@ -34,6 +34,7 @@ public class SeatsBar implements GUIComponent
 	
 	private static JLabel flightIDLabel;
 	private int flightID;
+	private String seatString;
 	
 			public class Seat
 			{
@@ -135,7 +136,7 @@ public class SeatsBar implements GUIComponent
 													BookingBar.lastNameField.getText(),
 													BookingBar.phoneNumberField.getText(),
 													flightID,
-													"pik");
+													getSelectedSeats());
 					}
 					
 					catch (Exception e1)
@@ -422,6 +423,34 @@ public class SeatsBar implements GUIComponent
 			body.add(centerRow, BorderLayout.CENTER);
 	
 		frame.add(body, BorderLayout.CENTER);	
+	}
+	
+	public String getSelectedSeats()
+	{
+		ArrayList<String> seats = new ArrayList<String>();
+		
+		for(int i=0; i<selectedSeats.size(); i++)
+		{
+			if(selectedSeats.get(i).isSelected())
+			{
+				seats.add(selectedSeats.get(i).getToolTipText());
+			}
+		}
+		
+		for(String seat : seats)
+		{
+				if(seatString == null)
+				{
+					seatString = "";
+				}
+				
+			seatString = seatString + "," + seat;
+			
+		}
+		
+		System.out.println(seatString);
+		
+		return seatString.toString();
 	}
 	
 	public void showFrame()
