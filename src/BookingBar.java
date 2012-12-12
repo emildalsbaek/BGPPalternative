@@ -32,8 +32,8 @@ public class BookingBar implements GUIComponent
 	private JComboBox<String> toBox;
 	private JComboBox<String> dateBox;
 	
-	private JTextField firstNameField;
-	private JTextField lastNameField;
+	static JTextField firstNameField;
+	static JTextField lastNameField;
 	private JTextField phoneNumberField;
 	
 	private String[] fromArray = { "Select Departure", "Amsterdam", "Copenhagen", "Rønne", "Timbuktu" };
@@ -138,7 +138,8 @@ public class BookingBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					
+					new SeatsBar();
+					frame.setVisible(false);
 				}
 			}
 
