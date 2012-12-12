@@ -1,14 +1,14 @@
-import java.awt.List;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class SearchFunctionSeat
 {	
-	static List st = new List();
+	static ArrayList<String> st = new ArrayList<String>();
 	
 	// Searching the database.
 	// Takes DataBase.getEntry(int FlightID)
 	// empty strings allowed.
-		public static List getEntry(int qr1) throws Exception
+		public static ArrayList<String> getEntry(int qr1) throws Exception
 		{
 			String query =	"SELECT Seats," +
 							" ID FROM passengers" + " WHERE FlightID = '" + qr1 + "'";
