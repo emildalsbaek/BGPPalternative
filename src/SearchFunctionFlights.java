@@ -30,8 +30,7 @@ public class SearchFunctionFlights
 		public static int getMaxSeats(int qr1) throws Exception
 		{
 			String query =	"SELECT SeatsTotal," +
-							" FlightID FROM Flights" + " WHERE FlightID = '" + qr1 + "'" +
-							"'";
+							" FlightID FROM Flights" + " WHERE FlightID = '" + qr1 + "'";
 
 			ResultSet rs = Database.getInstance().execute(query);
 		
@@ -40,6 +39,7 @@ public class SearchFunctionFlights
 					for ( int i = 1; i < rs.getMetaData().getColumnCount(); i++)
 						SeatsTotal = rs.getInt(i);
 				}
+				System.out.println(SeatsTotal);
 			return SeatsTotal;
 		}
 }
