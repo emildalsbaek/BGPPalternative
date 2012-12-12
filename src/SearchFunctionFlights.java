@@ -27,10 +27,11 @@ public class SearchFunctionFlights
 			return st;
 		}
 		
-		public static int getMaxSeats(int qr1) throws Exception
+		//returns maxseats in a plane based on argument(Fromcity, Tocity, Date)
+		public static int getMaxSeats(String qr1, String qr2, String qr3) throws Exception
 		{
 			String query =	"SELECT SeatsTotal," +
-							" FlightID FROM Flights" + " WHERE FlightID = '" + qr1 + "'";
+							" FlightID FROM Flights" + " WHERE FromCity = '" + qr1 + "' AND WHERE ToCity = '" + qr2 +"' AND WHERE DepartureDate = '" + qr3 + "'";
 
 			ResultSet rs = Database.getInstance().execute(query);
 		
