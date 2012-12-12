@@ -18,8 +18,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class SeatsBar implements GUIComponent
-{	
+{		
 	private ArrayList<JButton> selectedSeats = new ArrayList<JButton>();
+	private ArrayList<JButton> seatsArrayList = new ArrayList<JButton>();
 	
 	private JFrame frame;
 	
@@ -38,7 +39,6 @@ public class SeatsBar implements GUIComponent
 	
 			public class Seat
 			{
-				boolean isTaken = false;
 				protected JButton seat;
 				
 						public class SeatListener implements MouseListener
@@ -79,6 +79,12 @@ public class SeatsBar implements GUIComponent
 						seat.addMouseListener(new SeatListener());
 						seat.setSelectedIcon(new ImageIcon("seatSelected.PNG"));
 						seat.setName(letter + number);
+						seatsArrayList.add(seat);
+				}
+				
+				public JButton getSeat()
+				{
+					return seat;
 				}
 			}
 			
@@ -367,11 +373,13 @@ public class SeatsBar implements GUIComponent
 						southSeats.add(seat.seat);
 					}
 				}
-			
+				
 				body.add(northSeats, BorderLayout.NORTH);
 				body.add(southSeats, BorderLayout.SOUTH);
 				body.add(centerRow, BorderLayout.CENTER);
 			
+			setTakenSeats();
+				
 			frame.add(body, BorderLayout.CENTER);	
 		}
 	
@@ -418,6 +426,8 @@ public class SeatsBar implements GUIComponent
 					}
 				}
 	
+			setTakenSeats();
+				
 			body.add(northSeats, BorderLayout.NORTH);
 			body.add(southSeats, BorderLayout.SOUTH);
 			body.add(centerRow, BorderLayout.CENTER);
@@ -451,6 +461,31 @@ public class SeatsBar implements GUIComponent
 		System.out.println(seatString);
 		
 		return seatString.toString();
+	}
+	
+	public void setTakenSeats()
+	{
+		try
+		{
+			SearchFunctionSeat.getEntry(flightID);
+
+		}
+		
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		for(int i=1; i<SearchFunctionSeat.st.size(); i++)
+		{
+			for(JButton seat : seatsArrayList)
+			{
+				if(seat.getToolTipText().equals(SearchFunctionSeat.st.get(i)))
+				{
+					seat.setIcon(new ImageIcon("seatTaken.PNG"));
+				}
+			}
+		}
 	}
 	
 	public void showFrame()
