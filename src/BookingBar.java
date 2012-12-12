@@ -139,7 +139,6 @@ public class BookingBar implements GUIComponent
 				public void actionPerformed(ActionEvent e)
 				{
 					new SeatsBar();
-					frame.setVisible(false);
 				}
 			}
 
