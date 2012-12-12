@@ -24,11 +24,6 @@ public class SearchFunctionFlights
 					
 					st.add("");
 				}
-				
-//			for (int i = 0; i < st.getItemCount(); i++) {
-//				System.out.println(st.getItem(i));
-//			}
-				
 			return st;
 		}
 		
