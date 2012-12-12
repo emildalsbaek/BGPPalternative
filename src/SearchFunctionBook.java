@@ -19,7 +19,7 @@ public class SearchFunctionBook
 				while (rs.next())
 				{
 					for ( int i = 1; i < rs.getMetaData().getColumnCount(); i++)
-						st.add(rs.getMetaData().getColumnName(i)+": "+rs.getString(rs.getMetaData().getColumnName(i)));
+						st.add(rs.getString(rs.getMetaData().getColumnName(i)));
 				}
 			return st;
 		}
