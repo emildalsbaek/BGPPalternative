@@ -10,7 +10,7 @@ public class SearchFunctionPas
 	// string BookingNumber): empty strings allowed.
 		public static List getEntry(String qr1, String qr2, String qr3, String qr4) throws Exception
 		{
-			String query =	"SELECT ID, FirstName, LastName, PhoneNumber, FlightID, Seats, BookingNumber," +
+			String query =	"SELECT ID, FirstName, LastName, PhoneNumber, FlightID, Seats, BookingNumber," + 
 							" ID FROM passengers" +	" WHERE FirstName LIKE '%" + qr1 + "%' AND LastName LIKE '%"
 							+ qr2 + "%' AND PhoneNumber LIKE '%" + qr3 + "%' AND BookingNumber LIKE '%" + qr4 +
 							"%' ORDER BY ID";
