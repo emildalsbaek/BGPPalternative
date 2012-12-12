@@ -27,7 +27,7 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					
+					frame.setVisible(false);
 				}
 			}
 			
@@ -35,7 +35,8 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					
+//					BookingBar.getFrame().setVisible(false);
+					frame.setVisible(false);
 				}
 			}
 	
@@ -102,9 +103,6 @@ public class SeatsBar implements GUIComponent
 	public void makeButtons()
 	{		
 		// Sets up the buttons - and some of the graphics - in the frame.
-			JLabel topwing = new JLabel(new ImageIcon("largenorth.PNG"));
-				topwing.setLayout(new FlowLayout(FlowLayout.LEFT));
-			
 			JPanel flowWest = new JPanel();
 				flowWest.setLayout(new FlowLayout(FlowLayout.LEFT));
 				flowWest.setOpaque(false);
@@ -160,17 +158,42 @@ public class SeatsBar implements GUIComponent
 				flowEast.add(confirmButton);
 				flowEast.add(cancelButton);
 				
-			frame.add(topwing, BorderLayout.NORTH);
 			frame.add(bottomwing, BorderLayout.SOUTH);
 	}
 	
 	public void makePassengerPane()
 	{
 		// Sets up the passenger information pane at the top left corner of the screen.
-//			JLabel nameLabel = new JLabel(BookingBar.firstNameField.getText() + " " + BookingBar.lastNameField.getText());
-//				nameLabel.setOpaque(false);
-//			
-//			frame.add(nameLabel, BorderLayout.NORTH);
+			JLabel topwing = new JLabel(new ImageIcon("largenorth.PNG"));
+				topwing.setLayout(new GridLayout(0, 1));
+				
+			JLabel nameLabel = new JLabel(	"   Name: " + BookingBar.firstNameField.getText() +
+											" " + BookingBar.lastNameField.getText());
+			JLabel phoneLabel = new JLabel("   Phone: " + BookingBar.phoneNumberField.getText());
+			JLabel fromLabel = new JLabel("   From: " + BookingBar.fromBox.getSelectedItem().toString());
+			JLabel toLabel = new JLabel("   To: " + BookingBar.toBox.getSelectedItem().toString());
+			JLabel dateLabel = new JLabel("   " + BookingBar.dateBox.getSelectedItem().toString());
+
+			JLabel[] labels	= new JLabel[5];
+				labels[0] = nameLabel;
+				labels[1] = phoneLabel;
+				labels[2] = fromLabel;
+				labels[3] = toLabel;
+				labels[4] = dateLabel;
+				
+					for(JLabel label : labels)
+					{
+						label.setOpaque(false);
+						label.setForeground(Color.WHITE);
+					}
+			
+				topwing.add(nameLabel);
+				topwing.add(phoneLabel);
+				topwing.add(fromLabel);
+				topwing.add(toLabel);
+				topwing.add(dateLabel);
+				
+			frame.add(topwing, BorderLayout.NORTH);
 	}
 	
 	public void showFrame()

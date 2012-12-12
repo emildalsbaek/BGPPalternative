@@ -28,13 +28,13 @@ public class BookingBar implements GUIComponent
 	private JButton clearButton;
 	private JButton closeButton;
 	
-	private JComboBox<String> fromBox;
-	private JComboBox<String> toBox;
-	private JComboBox<String> dateBox;
+	static JComboBox<String> fromBox;
+	static JComboBox<String> toBox;
+	static JComboBox<String> dateBox;
 	
 	static JTextField firstNameField;
 	static JTextField lastNameField;
-	private JTextField phoneNumberField;
+	static JTextField phoneNumberField;
 	
 	private String[] fromArray = { "Select Departure", "Amsterdam", "Copenhagen", "Rønne", "Timbuktu" };
 	private String[] toArray = { "Select Destination", "Amsterdam", "Copenhagen", "Rønne", "Timbuktu" };
