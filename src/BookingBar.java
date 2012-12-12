@@ -363,10 +363,12 @@ public class BookingBar implements GUIComponent
 	{
 		if(	fromBox.getSelectedIndex() != 0 && toBox.getSelectedIndex() != 0 && dateBox.getSelectedIndex() != 0 && 
 			!firstNameField.getText().equalsIgnoreCase("") && !lastNameField.getText().equalsIgnoreCase("") &&
-			!phoneNumberField.getText().equalsIgnoreCase(""))
+			!phoneNumberField.getText().equalsIgnoreCase("") && !(phoneNumberField.getText().length() >= 10))
 		{
 			nextButton.setEnabled(true);
 		}
+		else
+			nextButton.setEnabled(false);
 	}
 	
 	public static JFrame getFrame()

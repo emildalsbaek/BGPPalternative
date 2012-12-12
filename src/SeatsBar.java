@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class SeatsBar implements GUIComponent
@@ -141,6 +142,12 @@ public class SeatsBar implements GUIComponent
 					{
 						e1.printStackTrace();
 					}
+					
+					frame.setVisible(false);
+					BookingBar.getFrame().setVisible(false);
+					BookingBar.isOpen = false;
+					
+					JOptionPane.showMessageDialog(frame, "Passenger added to flight.");
 				}
 			}
 			
