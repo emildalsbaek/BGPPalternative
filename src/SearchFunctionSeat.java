@@ -14,12 +14,12 @@ public class SearchFunctionSeat
 			String query =	"SELECT Seats," +
 							" ID FROM passengers" + " WHERE FlightID = '" + qr1 + "'";
 
-			ResultSet rs = Database.getInstance().execute(query);
-				while (rs.next())
+			ResultSet rs2 = Database.getNewInstance().execute(query);
+				while (rs2.next())
 				{
-					for ( int i = 1; i < rs.getMetaData().getColumnCount(); i++)
+					for ( int i = 1; i < rs2.getMetaData().getColumnCount(); i++)
 					{
-						String[] str = rs.getString(i).split(",");
+						String[] str = rs2.getString(i).split(",");
 						for( int k = 0; k < str.length; k++ )
 							st.add(str[k]);
 					}
