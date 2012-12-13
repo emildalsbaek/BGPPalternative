@@ -386,10 +386,8 @@ public class SeatsBar implements GUIComponent
 			
 			setTakenSeats();
 			
-			if(fromEdit = true)
+			if(fromEdit == true)
 				showBookedSeats();
-			
-			else if(fromEdit = false){}
 				
 			frame.add(body, BorderLayout.CENTER);	
 		}
@@ -439,10 +437,8 @@ public class SeatsBar implements GUIComponent
 	
 			setTakenSeats();
 			
-			if(fromEdit = true)
+			if(fromEdit == true)
 				showBookedSeats();
-			
-			else if(fromEdit = false){}
 				
 			body.add(northSeats, BorderLayout.NORTH);
 			body.add(southSeats, BorderLayout.SOUTH);
