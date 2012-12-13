@@ -208,8 +208,8 @@ public class SeatsBar implements GUIComponent
 							}
 
 							frame.setVisible(false);
-//							BookingBar.getFrame().setVisible(false);
-//							BookingBar.isOpen = false;
+							BookingBar.getFrame().setVisible(false);
+							BookingBar.isOpen = false;
 		
 							JOptionPane.showMessageDialog(frame, "Passenger added to flight.");
 						}
@@ -224,6 +224,8 @@ public class SeatsBar implements GUIComponent
 		this.to = to;
 		this.date = date;
 		this.flightID = flightID;
+		
+		selectedSeats.clear();
 		
 		makeFrame();
 		makeButtons();
@@ -494,27 +496,27 @@ public class SeatsBar implements GUIComponent
 	{
 		ArrayList<String> seats = new ArrayList<String>();
 		
-		for(int i=1; i<selectedSeats.size(); i++)
-		{
-			if(selectedSeats.get(i).isSelected())
+			for(int i=1; i<selectedSeats.size(); i++)
 			{
-				seats.add(selectedSeats.get(i).getToolTipText());
-			}
-		}
-		
-		for(String seat : seats)
-		{
-				if(seatString == null)
+				if(selectedSeats.get(i).isSelected())
 				{
-					seatString = "";
+					seats.add(selectedSeats.get(i).getToolTipText());
 				}
-				
-			seatString = seatString + "," + seat;
+			}
 			
-		}
-		
+			for(String seat : seats)
+			{
+					if(seatString == null)
+					{
+						seatString = "";
+					}
+					
+				seatString = seatString + "," + seat;
+				
+			}
+			
 		System.out.println(seatString);
-		
+			
 		return seatString.toString();
 	}
 	
