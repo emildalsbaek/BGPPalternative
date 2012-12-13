@@ -154,7 +154,7 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{	
-					if(selectedSeats == null && fromEdit == true)
+					if(selectedSeats.size() == 0 && fromEdit == true)
 					{
 						try
 						{
@@ -498,7 +498,7 @@ public class SeatsBar implements GUIComponent
 	
 	public String getSelectedSeats()
 	{	
-		//seatString = "";
+		seatString = "";
 		ArrayList<String> seats = new ArrayList<String>();
 		
 			for(int i=0; i<selectedSeats.size(); i++)
@@ -551,8 +551,6 @@ public class SeatsBar implements GUIComponent
 				if(seat.getToolTipText().equals(SearchFunctionSeat.st.get(i)))
 				{
 					seat.setIcon(new ImageIcon("seatTaken.PNG"));
-					seat.setSelectedIcon(new ImageIcon("seatSelected.PNG"));
-					selectedSeats.add(seat);
 				}
 			}
 		}

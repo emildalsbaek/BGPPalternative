@@ -11,6 +11,9 @@ public class SearchFunctionSeat
 	// empty strings allowed.
 		public static ArrayList<String> getEntry(int qr1) throws Exception
 		{
+			st.clear();
+			st2.clear();
+			
 			String query =	"SELECT Seats," +
 							" ID FROM passengers" + " WHERE FlightID = '" + qr1 + "'";
 
@@ -32,6 +35,9 @@ public class SearchFunctionSeat
 	// empty strings allowed.
 		public static ArrayList<String> getReservedSeats(int qr1) throws Exception
 		{
+			st.clear();
+			st2.clear();
+			
 			String query =	"SELECT Seats," +
 							" ID FROM passengers" + " WHERE ID = '" + qr1 + "'";
 			
