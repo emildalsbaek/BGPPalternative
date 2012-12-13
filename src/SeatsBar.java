@@ -498,7 +498,7 @@ public class SeatsBar implements GUIComponent
 	
 	public String getSelectedSeats()
 	{	
-		seatString = "";
+		//seatString = "";
 		ArrayList<String> seats = new ArrayList<String>();
 		
 			for(int i=0; i<selectedSeats.size(); i++)
