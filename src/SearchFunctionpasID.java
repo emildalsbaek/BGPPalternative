@@ -1,13 +1,10 @@
 import java.sql.ResultSet;
 
-//import java.awt.List;
-//import java.rmi.server.ServerCloneException;
-//import java.sql.ResultSet;
-//
-//import javax.management.Query;
-
 public class SearchFunctionpasID
 {
+	private static String FirstName;
+	private static String LastName;
+	
 	protected static String name;
 	protected static String phone;
 	protected static String from;
@@ -18,23 +15,41 @@ public class SearchFunctionpasID
 	public static void setEntry(int passengerID) throws Exception
 	{
 		String query =	"SELECT FirstName, LastName, PhoneNumber, FlightID," + 
-				" ID FROM passengers" +	" WHERE ID = '%" + passengerID +
-				"%' ORDER BY ID";
-
+				" ID FROM passengers" +	" WHERE ID = '" + passengerID +"'";
+		
 		ResultSet rs = Database.getInstance().execute(query);
 		
-		name = rs.getString("FirstName") + " " + rs.getString("LastName");
-		phone = rs.getString("PhoneNumber");
-		flightID = rs.getInt("FlightID");
+		while (rs.next()) {
+			for ( int i = 1; i < rs.getMetaData().getColumnCount(); i++)
+				if (i == 1) {
+					FirstName = rs.getString(i);
+				} else if (i == 2) {
+					LastName = rs.getString(i);
+				} else if (i == 3) {
+					phone = rs.getString(i);
+				} else if (i == 4)
+					flightID = rs.getInt(i);
+			name = FirstName + " " + LastName;
+		}
 		
-		String query2 = "SELECT FromCity, ToCity, DepartureDate" +
+		rs.close();
+		
+		String query2 = "SELECT FromCity, ToCity, DepartureDate," +
 				" FlightID FROM Flights" + " WHERE FlightID = '" + flightID + "'";
+
 		
 		ResultSet rs2 = Database.getInstance().execute(query2);
 		
-		from = rs2.getString("FromCity");
-		to = rs2.getString("ToCity");
-		date = rs2.getString("DepartureDate");
+		while (rs2.next()) {
+			for ( int i = 1; i < rs2.getMetaData().getColumnCount(); i++)
+				if (i == 1) {
+					from = rs2.getString(i);
+				} else if (i == 2) {
+					to = rs2.getString(i);
+				} else if (i == 3) {
+					date = rs2.getString(i);
+				}
+		}
 	}
 	
 	public static String getName()
