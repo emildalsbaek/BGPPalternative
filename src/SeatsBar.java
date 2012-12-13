@@ -153,27 +153,53 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
+					
+					System.out.println(fromEdit);
+					
+					if(selectedSeats.size() == 0 && fromEdit == true)
+					{
+						System.out.println("you've selecetd NOTHING");
+					}
+					
 					if(!((selectedSeats.size()) == 0))
 					{
-						try
+						if(fromEdit)
 						{
-							AddFunctionPas.setEntry(0, 	BookingBar.firstNameField.getText(),
-														BookingBar.lastNameField.getText(),
-														BookingBar.phoneNumberField.getText(),
-														flightID,
-														getSelectedSeats());
-						}
+							try
+							{
+								AddFunctionPas.setEntry(EditPassengerBar.passengerID,
+								SearchFunctionpasID.getFirst(),
+								SearchFunctionpasID.getLast(),
+								phone, flightID, getSelectedSeats());
+							}
+
+							catch (Exception e1)
+							{
+								e1.printStackTrace();
+							}
+					}
 						
-						catch (Exception e1)
+						else
 						{
-							e1.printStackTrace();
-						}
-						
-						frame.setVisible(false);
-						BookingBar.getFrame().setVisible(false);
-						BookingBar.isOpen = false;
-						
-						JOptionPane.showMessageDialog(frame, "Passenger added to flight.");
+							try 
+							{
+								AddFunctionPas.setEntry(0, BookingBar.firstNameField.getText(),
+										BookingBar.lastNameField.getText(),
+										BookingBar.phoneNumberField.getText(),
+										flightID, getSelectedSeats());
+							} 
+
+							catch (Exception e1) 
+							{
+								e1.printStackTrace();
+							}
+					}
+
+					frame.setVisible(false);
+					BookingBar.getFrame().setVisible(false);
+					BookingBar.isOpen = false;
+
+					JOptionPane.showMessageDialog(frame, "Passenger added to flight.");
 					}
 				}
 			}
@@ -502,6 +528,7 @@ public class SeatsBar implements GUIComponent
 				{
 					seat.setIcon(new ImageIcon("seatTaken.PNG"));
 					seat.setSelectedIcon(new ImageIcon("seatSelected.PNG"));
+					selectedSeats.add(seat);
 				}
 			}
 		}
