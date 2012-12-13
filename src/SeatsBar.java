@@ -141,6 +141,11 @@ public class SeatsBar implements GUIComponent
 					{
 						e1.printStackTrace();
 					}
+				
+					frame.setVisible(false);
+					
+					JOptionPane.showMessageDialog(frame, "Reservation cancelled.");
+					
 				}
 			}
 			
@@ -250,7 +255,8 @@ public class SeatsBar implements GUIComponent
 				clearButton.setPreferredSize(closeButton.getPreferredSize());
 				cancelButton.setPreferredSize(confirmButton.getPreferredSize());
 				
-				cancelButton.setEnabled(false);
+				if(fromEdit == false)
+					cancelButton.setEnabled(false);
 			
 			JButton[] buttons = new JButton[5];
 				buttons[0] = backButton;
