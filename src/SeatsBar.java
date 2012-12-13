@@ -187,7 +187,6 @@ public class SeatsBar implements GUIComponent
 		makeButtons();
 		makePassengerPane();
 		makeSeats();
-		testBool();
 		
 		showFrame();
 	}
@@ -386,6 +385,11 @@ public class SeatsBar implements GUIComponent
 				body.add(centerRow, BorderLayout.CENTER);
 			
 			setTakenSeats();
+			
+			if(fromEdit = true)
+				showBookedSeats();
+			
+			else if(fromEdit = false){}
 				
 			frame.add(body, BorderLayout.CENTER);	
 		}
@@ -434,6 +438,11 @@ public class SeatsBar implements GUIComponent
 				}
 	
 			setTakenSeats();
+			
+			if(fromEdit = true)
+				showBookedSeats();
+			
+			else if(fromEdit = false){}
 				
 			body.add(northSeats, BorderLayout.NORTH);
 			body.add(southSeats, BorderLayout.SOUTH);
@@ -498,30 +507,27 @@ public class SeatsBar implements GUIComponent
 	
 	public void showBookedSeats()
 	{
-		if(fromEdit = true)
+		int passengerID = EditPassengerBar.getPassengerID();
+		
+		try
 		{
-			int passengerID = EditPassengerBar.getPassengerID();
-			
-			try
+			SearchFunctionSeat.getReservedSeats(passengerID);
+		}
+		
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		for(int i=1; i<SearchFunctionSeat.st2.size(); i++)
+		{
+			for(JButton seat : seatsArrayList)
 			{
-				SearchFunctionSeat.getReservedSeats(passengerID);
-			}
-			
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-			
-			for(int i=1; i<SearchFunctionSeat.st2.size(); i++)
-			{
-				for(JButton seat : seatsArrayList)
+				if(seat.getToolTipText().equals(SearchFunctionSeat.st2.get(i)))
 				{
-					if(seat.getToolTipText().equals(SearchFunctionSeat.st2.get(i)))
-					{
-						seat.setIcon(new ImageIcon("seatFree.PNG"));
-						seat.setSelected(true);
-						selectedSeats.add(seat);
-					}
+					seat.setIcon(new ImageIcon("seatFree.PNG"));
+					seat.setSelected(true);
+					selectedSeats.add(seat);
 				}
 			}
 		}
@@ -530,11 +536,6 @@ public class SeatsBar implements GUIComponent
 	public void showFrame()
 	{
 		frame.setVisible(true);
-	}
-
-	public void testBool()
-	{
-			System.out.println(fromEdit);
 	}
 
 	public static void cameFromEdit()
