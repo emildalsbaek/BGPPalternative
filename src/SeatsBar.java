@@ -51,7 +51,15 @@ public class SeatsBar implements GUIComponent
 				
 						public class SeatListener implements MouseListener
 						{
-							public void mouseClicked(MouseEvent e)
+							public void mouseClicked(MouseEvent e){}
+		
+							public void mouseEntered(MouseEvent e){}
+							
+							public void mouseExited(MouseEvent e){}
+		
+							public void mousePressed(MouseEvent e){}
+		
+							public void mouseReleased(MouseEvent e)
 							{
 								if(seat.getIcon().toString().equals("seatTaken.PNG"))
 								{
@@ -71,14 +79,6 @@ public class SeatsBar implements GUIComponent
 									selectedSeats.add(seat);
 								}	
 							}
-		
-							public void mouseEntered(MouseEvent e){}
-							
-							public void mouseExited(MouseEvent e){}
-		
-							public void mousePressed(MouseEvent e){}
-		
-							public void mouseReleased(MouseEvent e){}
 							
 						}
 				
@@ -153,10 +153,8 @@ public class SeatsBar implements GUIComponent
 			public class ConfirmListener implements ActionListener
 			{
 				public void actionPerformed(ActionEvent e)
-				{
-					System.out.println(fromEdit);
-					
-					if(selectedSeats.size() == 0 && fromEdit == true)
+				{	
+					if(selectedSeats == null && fromEdit == true)
 					{
 						try
 						{
@@ -170,6 +168,7 @@ public class SeatsBar implements GUIComponent
 					
 						frame.setVisible(false);
 						
+						selectedSeats.clear();
 						JOptionPane.showMessageDialog(frame, "Reservation cancelled.");
 					}
 					
@@ -214,7 +213,8 @@ public class SeatsBar implements GUIComponent
 								BookingBar.getFrame().setVisible(false);
 								BookingBar.isOpen = false;
 							}
-		
+							
+							selectedSeats.clear();
 							JOptionPane.showMessageDialog(frame, "Passenger added to flight.");
 						}
 				}
@@ -497,10 +497,11 @@ public class SeatsBar implements GUIComponent
 	}
 	
 	public String getSelectedSeats()
-	{
+	{	
+		seatString = "";
 		ArrayList<String> seats = new ArrayList<String>();
 		
-			for(int i=1; i<selectedSeats.size(); i++)
+			for(int i=0; i<selectedSeats.size(); i++)
 			{
 				if(selectedSeats.get(i).isSelected())
 				{
@@ -516,12 +517,19 @@ public class SeatsBar implements GUIComponent
 					}
 					
 				seatString = seatString + "," + seat;
-				
 			}
 			
-		System.out.println(seatString);
+			if (seatString == null)
+			{
+			     return "All your problems are belong to us";
+			}
 			
-		return seatString.toString();
+			else
+			{
+				System.out.println(seatString);
+				
+				return seatString.toString();
+			}
 	}
 	
 	public void setTakenSeats()
@@ -529,7 +537,6 @@ public class SeatsBar implements GUIComponent
 		try
 		{
 			SearchFunctionSeat.getEntry(flightID);
-
 		}
 		
 		catch (Exception e)
@@ -537,7 +544,7 @@ public class SeatsBar implements GUIComponent
 			e.printStackTrace();
 		}
 		
-		for(int i=1; i<SearchFunctionSeat.st.size(); i++)
+		for(int i=0; i<SearchFunctionSeat.st.size(); i++)
 		{
 			for(JButton seat : seatsArrayList)
 			{
@@ -555,34 +562,33 @@ public class SeatsBar implements GUIComponent
 	{
 		int passengerID = EditPassengerBar.getPassengerID();
 		
-		try
-		{
-			SearchFunctionSeat.getReservedSeats(passengerID);
-		}
-		
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		for(int i=1; i<SearchFunctionSeat.st2.size(); i++)
-		{
-			for(JButton seat : seatsArrayList)
+			try
 			{
-				if(seat.getToolTipText().equals(SearchFunctionSeat.st2.get(i)))
+				SearchFunctionSeat.getReservedSeats(passengerID);
+			}
+			
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			for(int i=0; i<SearchFunctionSeat.st2.size(); i++)
+			{
+				for(JButton seat : seatsArrayList)
 				{
-					seat.setIcon(new ImageIcon("seatFree.PNG"));
-					seat.setSelected(true);
-					selectedSeats.add(seat);
+					if(seat.getToolTipText().equals(SearchFunctionSeat.st2.get(i)))
+					{
+						seat.setIcon(new ImageIcon("seatFree.PNG"));
+						seat.setSelected(true);
+						selectedSeats.add(seat);
+					}
 				}
 			}
-		}
 	}
 	
 	public void showFrame()
 	{
 		frame.setVisible(true);
-		frame.repaint();
 	}
 
 	public static void cameFromEdit()
