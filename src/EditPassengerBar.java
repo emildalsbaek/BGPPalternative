@@ -34,7 +34,15 @@ public class EditPassengerBar implements GUIComponent
 				{
 					number = Integer.valueOf(inputField.getText());
 					
-					SearchFunctionpasID.setEntry(number);
+					try 
+					{
+						SearchFunctionpasID.setEntry(number);
+					} 
+					
+					catch (Exception e1) 
+					{
+						e1.printStackTrace();
+					}
 					
 					new SeatsBar(	SearchFunctionpasID.getName(), SearchFunctionpasID.getPhone(),
 									SearchFunctionpasID.getFrom(), SearchFunctionpasID.getTo(),
