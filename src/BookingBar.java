@@ -138,7 +138,20 @@ public class BookingBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					new SeatsBar();
+					try {
+						new SeatsBar(BookingBar.firstNameField.getText() +
+								" " + BookingBar.lastNameField.getText(), BookingBar.phoneNumberField.getText(),
+								BookingBar.fromBox.getSelectedItem().toString(),
+								BookingBar.toBox.getSelectedItem().toString(),
+								BookingBar.dateBox.getSelectedItem().toString(),
+								SearchFunctionFlights.getFlightID(
+										BookingBar.fromBox.getSelectedItem().toString(),
+										BookingBar.toBox.getSelectedItem().toString(), 
+										BookingBar.dateBox.getSelectedItem().toString()));
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 

@@ -18,7 +18,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class SeatsBar implements GUIComponent
-{		
+{	
+	private String name;
+	private String phone;
+	private String from;
+	private String to;
+	private String date;
+	private int flightID;
+	
 	private ArrayList<JButton> selectedSeats = new ArrayList<JButton>();
 	private ArrayList<JButton> seatsArrayList = new ArrayList<JButton>();
 	
@@ -34,7 +41,6 @@ public class SeatsBar implements GUIComponent
 	private JPanel southSeats;
 	
 	private static JLabel flightIDLabel;
-	private int flightID;
 	private String seatString;
 	
 			public class Seat
@@ -45,7 +51,13 @@ public class SeatsBar implements GUIComponent
 						{
 							public void mouseClicked(MouseEvent e)
 							{
-								if(seat.isSelected())
+								if(seat.getIcon().toString().equals("seatTaken.PNG"))
+								{
+									
+								}
+								
+								else if(seat.isSelected())
+									
 								{
 									seat.setSelected(false);
 									selectedSeats.remove(seat);
@@ -80,11 +92,6 @@ public class SeatsBar implements GUIComponent
 						seat.setSelectedIcon(new ImageIcon("seatSelected.PNG"));
 						seat.setName(letter + number);
 						seatsArrayList.add(seat);
-				}
-				
-				public JButton getSeat()
-				{
-					return seat;
 				}
 			}
 			
@@ -136,30 +143,40 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					try
+					if(!(selectedSeats.size() == 0))
 					{
-						AddFunctionPas.setEntry(0, 	BookingBar.firstNameField.getText(),
-													BookingBar.lastNameField.getText(),
-													BookingBar.phoneNumberField.getText(),
-													flightID,
-													getSelectedSeats());
+						try
+						{
+							AddFunctionPas.setEntry(0, 	BookingBar.firstNameField.getText(),
+														BookingBar.lastNameField.getText(),
+														BookingBar.phoneNumberField.getText(),
+														flightID,
+														getSelectedSeats());
+						}
+						
+						catch (Exception e1)
+						{
+							e1.printStackTrace();
+						}
+						
+						frame.setVisible(false);
+						BookingBar.getFrame().setVisible(false);
+						BookingBar.isOpen = false;
+						
+						JOptionPane.showMessageDialog(frame, "Passenger added to flight.");
 					}
-					
-					catch (Exception e1)
-					{
-						e1.printStackTrace();
-					}
-					
-					frame.setVisible(false);
-					BookingBar.getFrame().setVisible(false);
-					BookingBar.isOpen = false;
-					
-					JOptionPane.showMessageDialog(frame, "Passenger added to flight.");
 				}
 			}
 			
-	public SeatsBar()
+	public SeatsBar(String name, String phone, String from, String to, String date, int flightID)
 	{	
+		this.name = name;
+		this.phone = phone;
+		this.from = from;
+		this.to = to;
+		this.date = date;
+		this.flightID = flightID;
+		
 		makeFrame();
 		makeButtons();
 		makePassengerPane();
@@ -259,26 +276,11 @@ public class SeatsBar implements GUIComponent
 			JLabel topwing = new JLabel(new ImageIcon("largenorth.PNG"));
 				topwing.setLayout(new GridLayout(0, 1));
 				
-			JLabel nameLabel = new JLabel(	"   Name: " + BookingBar.firstNameField.getText() +
-											" " + BookingBar.lastNameField.getText());
-			JLabel phoneLabel = new JLabel("   Phone: " + BookingBar.phoneNumberField.getText());
-			JLabel fromLabel = new JLabel("   From: " + BookingBar.fromBox.getSelectedItem().toString());
-			JLabel toLabel = new JLabel("   To: " + BookingBar.toBox.getSelectedItem().toString());
-			JLabel dateLabel = new JLabel("   Date: " + BookingBar.dateBox.getSelectedItem().toString());
-			
-			try
-			{
-				flightID = 	SearchFunctionFlights.getFlightID(
-							BookingBar.fromBox.getSelectedItem().toString(),
-							BookingBar.toBox.getSelectedItem().toString(), 
-							BookingBar.dateBox.getSelectedItem().toString());
-			} 
-			
-			catch (Exception e1)
-			{
-				e1.printStackTrace();
-			}
-
+			JLabel nameLabel = new JLabel(	"   Name: " + name);
+			JLabel phoneLabel = new JLabel("   Phone: " + phone);
+			JLabel fromLabel = new JLabel("   From: " + from);
+			JLabel toLabel = new JLabel("   To: " + to);
+			JLabel dateLabel = new JLabel("   Date: " + date);
 			flightIDLabel = new JLabel("   FlightID: " + flightID);
 
 			JLabel[] labels	= new JLabel[6];

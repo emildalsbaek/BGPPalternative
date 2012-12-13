@@ -18,32 +18,33 @@ import javax.swing.border.EmptyBorder;
 
 public class EditPassengerBar implements GUIComponent
 {
-	static boolean isOpen;
-	static int passengerID;
+	protected static boolean isOpen;
+	protected static int passengerID;
 	
 	private JFrame frame;
 	private static JFormattedTextField inputField;
 	private JButton confirmButton;
 	private JButton cancelButton;
 	
+	private int number;
+	
 			public class ConfirmListener implements ActionListener
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-//					if(passenger ID match found)
-//					{
-//						new BookingBar(parameters);
-//						frame.setVisible(false);
-//						isOpen = false;
-//
-//						SearchBar.getFrame().setVisible(false);
-//						SearchBar.isOpen = false;
-//					}
-//						
-//					else
-//					{
-//						inputfield.setText(null);
-//					}
+					number = Integer.valueOf(inputField.getText());
+					
+					SearchFunctionpasID.setEntry(number);
+					
+					new SeatsBar(	SearchFunctionpasID.getName(), SearchFunctionpasID.getPhone(),
+									SearchFunctionpasID.getFrom(), SearchFunctionpasID.getTo(),
+									SearchFunctionpasID.getDate(), SearchFunctionpasID.getFlightID());
+					
+					frame.setVisible(false);
+					isOpen = false;
+
+					SearchBar.getFrame().setVisible(false);
+					SearchBar.isOpen = false;
 				}
 			}
 
