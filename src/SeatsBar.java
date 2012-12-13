@@ -208,8 +208,12 @@ public class SeatsBar implements GUIComponent
 							}
 
 							frame.setVisible(false);
-							BookingBar.getFrame().setVisible(false);
-							BookingBar.isOpen = false;
+
+							if(BookingBar.isOpen)
+							{
+								BookingBar.getFrame().setVisible(false);
+								BookingBar.isOpen = false;
+							}
 		
 							JOptionPane.showMessageDialog(frame, "Passenger added to flight.");
 						}
