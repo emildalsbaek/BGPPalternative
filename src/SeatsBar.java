@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 
 public class SeatsBar implements GUIComponent
 {	
+	protected static boolean fromEdit = false;
+
 	private String name;
 	private String phone;
 	private String from;
@@ -107,7 +109,9 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					BookingBar.getFrame().setVisible(false);
+					if(BookingBar.isOpen)
+						BookingBar.getFrame().setVisible(false);
+					
 					frame.setVisible(false);
 				}
 			}
@@ -143,7 +147,7 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					if(!(selectedSeats.size() == 0))
+					if(!((selectedSeats.size()) == 0))
 					{
 						try
 						{
@@ -312,9 +316,7 @@ public class SeatsBar implements GUIComponent
 		// Sets up the seats.
 			try
 			{
-				if(SearchFunctionFlights.getMaxSeats(	BookingBar.fromBox.getSelectedItem().toString(), 
-														BookingBar.toBox.getSelectedItem().toString(),
-														BookingBar.dateBox.getSelectedItem().toString()) == 40)
+				if(SearchFunctionFlights.getMaxSeats(from, to, date) == 40)
 					seats40();
 				
 				else
@@ -381,6 +383,7 @@ public class SeatsBar implements GUIComponent
 				body.add(centerRow, BorderLayout.CENTER);
 			
 			setTakenSeats();
+			showBookedSeats();
 				
 			frame.add(body, BorderLayout.CENTER);	
 		}
@@ -429,6 +432,7 @@ public class SeatsBar implements GUIComponent
 				}
 	
 			setTakenSeats();
+			showBookedSeats();
 				
 			body.add(northSeats, BorderLayout.NORTH);
 			body.add(southSeats, BorderLayout.SOUTH);
@@ -485,6 +489,38 @@ public class SeatsBar implements GUIComponent
 				if(seat.getToolTipText().equals(SearchFunctionSeat.st.get(i)))
 				{
 					seat.setIcon(new ImageIcon("seatTaken.PNG"));
+					seat.setSelectedIcon(new ImageIcon("seatSelected.PNG"));
+				}
+			}
+		}
+	}
+	
+	public void showBookedSeats()
+	{
+		if(fromEdit = true)
+		{
+			int passengerID = EditPassengerBar.getPassengerID();
+			
+			try
+			{
+				SearchFunctionSeat.getReservedSeats(passengerID);
+			}
+			
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			for(int i=1; i<SearchFunctionSeat.st2.size(); i++)
+			{
+				for(JButton seat : seatsArrayList)
+				{
+					if(seat.getToolTipText().equals(SearchFunctionSeat.st2.get(i)))
+					{
+						seat.setIcon(new ImageIcon("seatFree.PNG"));
+						seat.setSelected(true);
+						selectedSeats.add(seat);
+					}
 				}
 			}
 		}

@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class SearchFunctionSeat
 {	
-	static ArrayList<String> st = new ArrayList<String>();
-	static ArrayList<String> st2 = new ArrayList<String>();
+	protected static ArrayList<String> st = new ArrayList<String>();
+	protected static ArrayList<String> st2 = new ArrayList<String>();
 	
 	// Searching the database.
 	// Takes DataBase.getEntry(int FlightID)
