@@ -52,6 +52,16 @@ public class SearchFunctionpasID
 		}
 	}
 	
+	public static String getFirst()
+	{
+		return FirstName;
+	}
+	
+	public static String getLast()
+	{
+		return LastName;
+	}
+	
 	public static String getName()
 	{
 		return name;
