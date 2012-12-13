@@ -27,7 +27,7 @@ public class SeatsBar implements GUIComponent
 	private String to;
 	private String date;
 	private int flightID;
-	private int passengerID;
+//	private int passengerID;
 	
 	private ArrayList<JButton> selectedSeats = new ArrayList<JButton>();
 	private ArrayList<JButton> seatsArrayList = new ArrayList<JButton>();
@@ -181,7 +181,7 @@ public class SeatsBar implements GUIComponent
 		this.to = to;
 		this.date = date;
 		this.flightID = flightID;
-		this.passengerID = 0;
+//		this.passengerID = 0;
 		
 		makeFrame();
 		makeButtons();
