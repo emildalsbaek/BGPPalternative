@@ -138,6 +138,8 @@ public class BookingBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
+					SeatsBar.cameFromBooking();
+					
 					try
 					{
 						new SeatsBar(	BookingBar.firstNameField.getText() +
@@ -156,9 +158,6 @@ public class BookingBar implements GUIComponent
 					{
 						e1.printStackTrace();
 					}
-					
-					SeatsBar.cameFromBooking();
-					SeatsBar.fromEdit = true;
 				}
 			}
 

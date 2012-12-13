@@ -32,6 +32,8 @@ public class EditPassengerBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
+					SeatsBar.cameFromEdit();
+					
 					number = Integer.valueOf(inputField.getText());
 					
 					try 
@@ -55,8 +57,6 @@ public class EditPassengerBar implements GUIComponent
 
 					SearchBar.getFrame().setVisible(false);
 					SearchBar.isOpen = false;
-					
-					SeatsBar.cameFromEdit();
 				}
 			}
 
