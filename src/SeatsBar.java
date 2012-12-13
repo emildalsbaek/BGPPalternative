@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 
 public class SeatsBar implements GUIComponent
 {	
-	protected static boolean fromEdit = false;
+	public static boolean fromEdit;
 
 	private String name;
 	private String phone;
@@ -27,6 +27,7 @@ public class SeatsBar implements GUIComponent
 	private String to;
 	private String date;
 	private int flightID;
+	private int passengerID;
 	
 	private ArrayList<JButton> selectedSeats = new ArrayList<JButton>();
 	private ArrayList<JButton> seatsArrayList = new ArrayList<JButton>();
@@ -180,11 +181,13 @@ public class SeatsBar implements GUIComponent
 		this.to = to;
 		this.date = date;
 		this.flightID = flightID;
+		this.passengerID = 0;
 		
 		makeFrame();
 		makeButtons();
 		makePassengerPane();
 		makeSeats();
+		testBool();
 		
 		showFrame();
 	}
@@ -383,7 +386,6 @@ public class SeatsBar implements GUIComponent
 				body.add(centerRow, BorderLayout.CENTER);
 			
 			setTakenSeats();
-			showBookedSeats();
 				
 			frame.add(body, BorderLayout.CENTER);	
 		}
@@ -432,7 +434,6 @@ public class SeatsBar implements GUIComponent
 				}
 	
 			setTakenSeats();
-			showBookedSeats();
 				
 			body.add(northSeats, BorderLayout.NORTH);
 			body.add(southSeats, BorderLayout.SOUTH);
@@ -529,5 +530,20 @@ public class SeatsBar implements GUIComponent
 	public void showFrame()
 	{
 		frame.setVisible(true);
+	}
+
+	public void testBool()
+	{
+			System.out.println(fromEdit);
+	}
+
+	public static void cameFromEdit()
+	{
+		fromEdit = true;
+	}
+	
+	public static void cameFromBooking()
+	{
+		fromEdit = false;
 	}
 }

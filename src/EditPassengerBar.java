@@ -48,13 +48,15 @@ public class EditPassengerBar implements GUIComponent
 									SearchFunctionpasID.getFrom(), SearchFunctionpasID.getTo(),
 									SearchFunctionpasID.getDate(), SearchFunctionpasID.getFlightID());
 					
-					SeatsBar.fromEdit = true;
+					
 					
 					frame.setVisible(false);
 					isOpen = false;
 
 					SearchBar.getFrame().setVisible(false);
 					SearchBar.isOpen = false;
+					
+					SeatsBar.cameFromEdit();
 				}
 			}
 
