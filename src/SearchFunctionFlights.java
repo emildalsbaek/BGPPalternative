@@ -20,9 +20,15 @@ public class SearchFunctionFlights
 		
 				while (rs.next())
 				{
-					for ( int i = 1; i < rs.getMetaData().getColumnCount(); i++)
-						st.add(rs.getMetaData().getColumnName(i)+": "+rs.getString(rs.getMetaData().getColumnName(i)));
-					
+					for ( int i = 1; i < rs.getMetaData().getColumnCount(); i++){
+						if (i == 5) {
+							int k = rs.getInt(rs.getMetaData().getColumnName(i)) - SearchFunctionSeat.getEntry(rs.getInt(1)).size();
+							st.add("Seats left: " + k);
+
+						} else {
+							st.add(rs.getMetaData().getColumnName(i)+": "+rs.getString(rs.getMetaData().getColumnName(i)));
+						}
+					}
 					st.add("");
 				}
 			return st;

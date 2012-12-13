@@ -28,6 +28,12 @@ public class Database
 		return instance;
 	}
 	
+	public static Database getNewInstance()
+	{
+				instance = new Database();
+		return instance;
+	}
+	
 	private void connect()throws Exception
 	{
 		Class.forName("com.mysql.jdbc.Driver");
