@@ -27,7 +27,6 @@ public class SeatsBar implements GUIComponent
 	private String to;
 	private String date;
 	private int flightID;
-//	private int passengerID;
 	
 	private ArrayList<JButton> selectedSeats = new ArrayList<JButton>();
 	private ArrayList<JButton> seatsArrayList = new ArrayList<JButton>();
@@ -125,6 +124,8 @@ public class SeatsBar implements GUIComponent
 					{
 						selectedSeats.get(i).setSelected(false);
 					}
+					
+					selectedSeats.clear();
 				}
 			}
 			
@@ -153,54 +154,65 @@ public class SeatsBar implements GUIComponent
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					
 					System.out.println(fromEdit);
 					
 					if(selectedSeats.size() == 0 && fromEdit == true)
 					{
-						System.out.println("you've selecetd NOTHING");
+						try
+						{
+							DelFunctionPas.delEntry(EditPassengerBar.getPassengerID());
+						} 
+						
+						catch (Exception e1)
+						{
+							e1.printStackTrace();
+						}
+					
+						frame.setVisible(false);
+						
+						JOptionPane.showMessageDialog(frame, "Reservation cancelled.");
 					}
 					
-					if(!((selectedSeats.size()) == 0))
-					{
-						if(fromEdit)
+						if(!((selectedSeats.size()) == 0))
 						{
-							try
+							if(fromEdit)
 							{
+								try
+								{
 								AddFunctionPas.setEntry(EditPassengerBar.passengerID,
-								SearchFunctionpasID.getFirst(),
-								SearchFunctionpasID.getLast(),
-								phone, flightID, getSelectedSeats());
-							}
+														SearchFunctionpasID.getFirst(),
+														SearchFunctionpasID.getLast(),
+														phone, flightID, getSelectedSeats());
+								}
 
-							catch (Exception e1)
-							{
+								catch (Exception e1)
+								{
 								e1.printStackTrace();
+								}
 							}
-					}
 						
-						else
-						{
-							try 
+							else
 							{
-								AddFunctionPas.setEntry(0, BookingBar.firstNameField.getText(),
-										BookingBar.lastNameField.getText(),
-										BookingBar.phoneNumberField.getText(),
-										flightID, getSelectedSeats());
-							} 
+								try 
+								{
+									AddFunctionPas.setEntry(0, 	BookingBar.firstNameField.getText(),
+																BookingBar.lastNameField.getText(),
+																BookingBar.phoneNumberField.getText(),
+																flightID, getSelectedSeats());
+								} 
 
-							catch (Exception e1) 
-							{
-								e1.printStackTrace();
+								catch (Exception e1) 
+								{
+									e1.printStackTrace();
+								}
 							}
-					}
 
-					frame.setVisible(false);
-					BookingBar.getFrame().setVisible(false);
-					BookingBar.isOpen = false;
-
-					JOptionPane.showMessageDialog(frame, "Passenger added to flight.");
-					}
+							frame.setVisible(false);
+//							BookingBar.getFrame().setVisible(false);
+//							BookingBar.isOpen = false;
+		
+							JOptionPane.showMessageDialog(frame, "Passenger added to flight.");
+						}
 				}
 			}
 			
@@ -212,7 +224,6 @@ public class SeatsBar implements GUIComponent
 		this.to = to;
 		this.date = date;
 		this.flightID = flightID;
-//		this.passengerID = 0;
 		
 		makeFrame();
 		makeButtons();
@@ -483,7 +494,7 @@ public class SeatsBar implements GUIComponent
 	{
 		ArrayList<String> seats = new ArrayList<String>();
 		
-		for(int i=0; i<selectedSeats.size(); i++)
+		for(int i=1; i<selectedSeats.size(); i++)
 		{
 			if(selectedSeats.get(i).isSelected())
 			{
@@ -565,6 +576,7 @@ public class SeatsBar implements GUIComponent
 	public void showFrame()
 	{
 		frame.setVisible(true);
+		frame.repaint();
 	}
 
 	public static void cameFromEdit()
