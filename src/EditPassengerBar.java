@@ -70,6 +70,8 @@ public class EditPassengerBar implements GUIComponent
 					SearchBar.closeButton.setEnabled(true);
 					SearchBar.clearButton.setEnabled(true);
 					SearchBar.searchButton.setEnabled(true);
+					
+					isOpen = false;
 				}
 			}
 	

@@ -60,7 +60,7 @@ public class AboutBar implements GUIComponent
 			
 			JLabel l1 = new JLabel("EMMA BOOKING SYSTEMS", JLabel.CENTER);
 				l1.setFont(new Font("sansserif", Font.BOLD, 16));
-			JLabel l2 = new JLabel("version 0.1", JLabel.CENTER);
+			JLabel l2 = new JLabel("version 1.0", JLabel.CENTER);
 			JLabel l3 = new JLabel("Matt Jensen & Emil Dalsbæk 2012", JLabel.CENTER);
 			JLabel l4 = new JLabel("All Rights Reserved", JLabel.CENTER);
 			
